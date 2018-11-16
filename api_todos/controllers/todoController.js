@@ -28,8 +28,9 @@ exports.createTodo = (req, res) => {
 };
 
 // GET TODO
-exports.getTodo = (req, res) => {
-	Todo.findById(req.params.todo_id, (err, todo) => {
+exports.getTodo = (req, res) => { 
+	
+	Todo.findById({_id: req.params.todo_id}, (err, todo) => {
 		if(err) res.send(err);
 			res.json(todo);
 	});
@@ -45,5 +46,10 @@ exports.getTodo = (req, res) => {
 // };
 
 
-
-
+// DELETE TODO
+exports.deleteTodo = (req, res) => {
+	Todo.findByIdAndRemove({_id: req.params.todo_id}, (err, todo) => {
+		if(err) res.send(err);
+		res.json({ message: 'Successfully deleted' });
+	});
+};
